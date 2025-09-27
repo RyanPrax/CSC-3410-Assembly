@@ -7,10 +7,13 @@ STDOUT equ 1
 SECTION .data
     newLine DB 0xA, 0xD, 0
     newLineLen EQU $-newLine
+
     addTitle DB "The Adding Program", 0xA, 0xD, 0
     addTitleLen EQU $-addTitle
+
     userPrompt DB "Please enter a single digit number: "
     lenUserPrompt EQU $-userPrompt
+    
     answerMsg DB "The answer is: "
     lenAnswerMsg EQU $-answerMsg
 
@@ -78,7 +81,7 @@ _start:
     mov eax, SYS_WRITE
     mov ebx, STDOUT
     mov ecx, sum
-    mov edx, 2
+    mov edx, 1
     int 0x80
 
     ; Print New Line

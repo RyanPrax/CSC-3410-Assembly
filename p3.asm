@@ -7,12 +7,16 @@ STDOUT equ 1
 SECTION .data
     newLine DB 0xA, 0xD, 0
     newLineLen EQU $-newLine
+
     dividingTitle DB "The Dividing Program", 0xA, 0xD, 0
     dividingTitleLen EQU $-dividingTitle
+
     userPrompt DB "Please enter a single digit number: "
     lenUserPrompt EQU $-userPrompt
+
     quotientMsg DB "The Quotient is: "
     lenQuotientMsg EQU $-quotientMsg
+    
     remainderMsg DB "The remainder is: "
     lenRemainderMsg EQU $-remainderMsg
 
