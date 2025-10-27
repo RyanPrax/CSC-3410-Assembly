@@ -43,15 +43,37 @@ prompt_loop:
     cmp BYTE [buffer], 0xA
     je exit_program
 
-    ; Otherwise, call is_palindrome
-    ; TODO push parameters to stack
-    call is_palindrome
+    dec eax ; Remove \n from length
+    push eax ; Push length of input to the stack
+    push buffer ; Push the actual message to the stack
+    call is_palindrome ; Check if the message is a palindrome (auto true for now)
+    add esp, 8 ; Bring back the stack (2 parameters, 4 bytes each)
 
-    jmp prompt_loop
+    cmp eax, 1 ; is_palindrome returns 1 if palindrome
+    je print_palindrome
+    jmp print_not_palindrome
 
 is_palindrome:
-    mov eax, SYS_EXIT
+    mov eax, 1
+    ;mov eax, SYS_EXIT
+    ;int 0x80
+
+
+print_palindrome:
+    mov eax, SYS_WRITE
+    mov ebx, STDOUT
+    mov ecx, itIs
+    mov edx, itIsLen
     int 0x80
+    jmp prompt_loop
+
+print_not_palindrome:
+    mov eax, SYS_WRITE
+    mov ebx, STDOUT
+    mov ecx, itIsNot
+    mov edx, itIsNotLen
+    int 0x80
+    jmp prompt_loop
 
 exit_program:
     mov eax, SYS_EXIT
