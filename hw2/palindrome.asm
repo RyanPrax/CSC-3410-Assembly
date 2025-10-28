@@ -70,8 +70,7 @@ is_palindrome:
     jne .not_palindrome
     inc eax
     dec ebx
-    cmp eax, ecx
-    jl .again
+    jmp .again
 
 .palindrome:
     mov eax, 1
