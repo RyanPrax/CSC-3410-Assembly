@@ -15,7 +15,7 @@ SECTION .data
     itIsLen EQU $-itIs
 
     itIsNot DB "It is NOT a palindrome", 0xA, 0xD, 0
-    itIsNotLen EQU $-itIs
+    itIsNotLen EQU $-itIsNot
 
 SECTION .bss
     buffer RESB 1024
@@ -43,20 +43,42 @@ prompt_loop:
     cmp BYTE [buffer], 0xA
     je exit_program
 
-    dec eax ; Remove \n from length
-    push eax ; Push length of input to the stack
-    push buffer ; Push the actual message to the stack
-    call is_palindrome ; Check if the message is a palindrome (auto true for now)
-    add esp, 8 ; Bring back the stack (2 parameters, 4 bytes each)
+    dec eax             ; Remove \n from length
+    push eax            ; Push length of input to the stack
+    push buffer         ; Push the actual message to the stack
+    call is_palindrome  ; Check if the message is a palindrome (auto true for now)
+    add esp, 8          ; Bring back the stack (2 parameters, 4 bytes each)
 
-    cmp eax, 1 ; is_palindrome returns 1 if palindrome
+    cmp eax, 1          ; is_palindrome returns 1 if palindrome
     je print_palindrome
     jmp print_not_palindrome
 
 is_palindrome:
+    mov esi, [esp+4]    ; buffer pointer
+    mov ecx, [esp+8]    ; length
+    mov eax, 0          ; i = 0
+    mov ebx, ecx        ; j = length
+    dec ebx             ; j = length - 1
+    shr ecx, 1          ; length/2
+
+.again:
+    cmp eax, ecx
+    jge .palindrome     ; if i >= len/2, done
+    mov dl, [esi + eax] ; buf[i]
+    mov dh, [esi + ebx] ; buf[j]
+    cmp dl, dh
+    jne .not_palindrome
+    inc eax
+    dec ebx
+    cmp eax, ecx
+    jl .again
+
+.palindrome:
     mov eax, 1
-    ;mov eax, SYS_EXIT
-    ;int 0x80
+    ret
+.not_palindrome:
+    mov eax, 0
+    ret
 
 
 print_palindrome:
