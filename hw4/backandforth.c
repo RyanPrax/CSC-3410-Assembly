@@ -17,10 +17,7 @@ char* prompt_str(char* message) {
 
 int addstr(char* a, char* b);
 
-int is_palindromeASM() {
-    /** Option 2 */
-    return 0;
-}
+int is_palindromeASM(char* s);
 
 int factstr(char *s);
 int fact(int n) {
@@ -77,7 +74,10 @@ int main() {
             printf("Sum = %d", sum);
             break;
         case 2:
-            is_palindromeASM();
+            char* s = prompt_str("Enter a string: ");
+            int result;
+            result = is_palindromeASM(s);
+            result ? printf("It is a palindrome!") : printf("It is NOT a palindrome!");
             break;
         case 3:
             char* n = prompt_str("Enter a number: ");
