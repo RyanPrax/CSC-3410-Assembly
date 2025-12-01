@@ -131,13 +131,15 @@ palindrome_check:
     mov edx, 1024
     int 0x80
 
+    ; Length of inputted string is stored in EAX
+    ; Decrement to account for the null terminator
     dec eax
     push eax
     push buffer
     call is_palindromeC
-    
+    ; Clean up stack
     add esp, 8
-
+    ; Result of is_palindromeC is stored in EAX
     cmp eax, 1
     je .print_pal_lbl
     jmp .print_not_pal_lbl
