@@ -74,8 +74,7 @@ int main() {
             char* b = prompt_str("Enter second number: ");
             int sum;
             sum = addstr(a, b);
-            printf("Sum = ");
-            printf("%d", sum);
+            printf("Sum = %d", sum);
             break;
         case 2:
             is_palindromeASM();
