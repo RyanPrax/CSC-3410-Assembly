@@ -15,10 +15,7 @@ char* prompt_str(char* message) {
     return input;
 }
 
-int add_strASM() {
-    /** Option 1 */
-    return -1;
-}
+int addstr(char* a, char* b);
 
 int is_palindromeASM() {
     /** Option 2 */
@@ -72,8 +69,13 @@ int main() {
         selection = program_selection();
     }
     switch(selection) {
-        case 1: 
-            add_strASM();
+        case 1:
+            char* a = prompt_str("Enter first number: ");
+            char* b = prompt_str("Enter second number: ");
+            int sum;
+            sum = addstr(a, b);
+            printf("Sum = ");
+            printf("%d", sum);
             break;
         case 2:
             is_palindromeASM();
