@@ -1,10 +1,19 @@
 BITS 32
+SECTION .data
+    pal_prompt DB "Enter a string: "
+    pal_prompt_len EQU $ - pal_prompt
+
+SECTION .bss
+    buffer RESB 128
+
 SECTION .text
     GLOBAL factstr
     GLOBAL addstr
     GLOBAL is_palindromeASM
+    GLOBAL palindrome_check
     EXTERN atoi
     EXTERN fact
+    EXTERN is_palindromeC
 
 ; Option 1: Add two numbers together
 addstr:
@@ -96,3 +105,30 @@ factstr:
     mov esp, ebp
     pop ebp
     ret
+
+; Option 4: Test if a string is a palindrome (ASM -> C)
+palindrome_check:
+    push ebp
+    mov ebp, esp
+
+    ; Prints: "Enter a string: "
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, pal_prompt
+    mov edx, pal_prompt_len
+    int 0x80
+
+    ; Receives string from user
+    mov eax, 3
+    mov ebx, 0
+    mov ecx, buffer
+    mov edx, 128
+    int 0x80
+    
+    push [edx]
+    push [ecx]
+    call is_palindromeC
+    
+    add esp, 8
+    mov esp, ebp
+    pop ebp

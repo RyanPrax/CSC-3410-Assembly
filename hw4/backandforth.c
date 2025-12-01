@@ -8,10 +8,13 @@ void clear_screen() {
 }
 
 char* prompt_str(char* message) {
-    char* input = malloc(100);
+    /** Prompts message followed by a STDIN
+     *  of max 128 Bytes (including \n)
+    */
+    char* input = malloc(128);
     if (!input) return NULL;
     printf("%s", message);
-    scanf("%99s", input);
+    scanf("%127s", input);
     return input;
 }
 
@@ -26,9 +29,14 @@ int fact(int n) {
     return n * fact(n-1);
 }
 
-int is_palindromeC() {
+void palindrome_check();
+int is_palindromeC(char* buf, int len) {
     /** Option 4 */
-    return 0;
+    int i, j;
+    for (i = 0, j = len-1; i < len/2; i++, j--) {
+        if (buf[i] != buf[j]) return 0;
+    }
+    return 1;
 }
 
 int program_selection() {
@@ -84,7 +92,7 @@ int main() {
             printf("%d", factstr(n));
             break;
         case 4:
-            is_palindromeC();
+            palindrome_check();
             break;
         case 5:
             return 0;
