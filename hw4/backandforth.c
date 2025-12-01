@@ -6,9 +6,24 @@ void clear_screen() {
     fflush(stdout);
 }
 
-int fact(int n) {
+int add_strASM() {
+    /** Option 1 */
+    return -1;
+}
 
-    return n;
+int is_palindromeASM() {
+    /** Option 2 */
+    return 0;
+}
+
+int fact() {
+    /** Option 3 */
+    return 0;
+}
+
+int is_palindromeC() {
+    /** Option 4 */
+    return 0;
 }
 
 int program_selection() {
@@ -45,8 +60,21 @@ int main() {
     while (selection == -1) {
         selection = program_selection();
     }
-    if (selection == 5) {
-        return 0;
+    switch(selection) {
+        case 1: 
+            add_strASM();
+            break;
+        case 2:
+            is_palindromeASM();
+            break;
+        case 3:
+            fact();
+            break;
+        case 4:
+            is_palindromeC();
+            break;
+        case 5:
+            return 0;
     }
 
     return 0;
