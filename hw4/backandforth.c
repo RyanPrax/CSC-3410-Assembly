@@ -9,17 +9,19 @@ void clear_screen() {
 
 char* prompt_str(char* message) {
     /** Prompts message followed by a STDIN
-     *  of max 128 Bytes (including \n)
+     *  of max 1024 Bytes (including \n)
     */
-    char* input = malloc(128);
+    char* input = malloc(1024);
     if (!input) return NULL;
     printf("%s", message);
-    scanf("%127s", input);
+    scanf("%1023s", input);
     return input;
 }
 
+/** Option 1 */
 int addstr(char* a, char* b);
 
+/** Option 2 */
 int is_palindromeASM(char* s);
 
 int factstr(char *s);

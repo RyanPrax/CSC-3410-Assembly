@@ -3,8 +3,14 @@ SECTION .data
     pal_prompt DB "Enter a string: "
     pal_prompt_len EQU $ - pal_prompt
 
+    print_pal_str DB "It is a palindrome!"
+    print_pal_len EQU $ - print_pal_str
+
+    print_not_pal_str DB "It is NOT a palindrome!"
+    print_not_pal_len EQU $ - print_not_pal_str
+
 SECTION .bss
-    buffer RESB 128
+    buffer RESB 1024
 
 SECTION .text
     GLOBAL factstr
@@ -122,13 +128,36 @@ palindrome_check:
     mov eax, 3
     mov ebx, 0
     mov ecx, buffer
-    mov edx, 128
+    mov edx, 1024
     int 0x80
-    
-    push [edx]
-    push [ecx]
+
+    dec eax
+    push eax
+    push buffer
     call is_palindromeC
     
     add esp, 8
+
+    cmp eax, 1
+    je .print_pal_lbl
+    jmp .print_not_pal_lbl
+
+.print_pal_lbl:
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, print_pal_str
+    mov edx, print_pal_len
+    int 0x80
+    jmp .finish
+
+.print_not_pal_lbl:
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, print_not_pal_str
+    mov edx, print_not_pal_len
+    int 0x80
+
+.finish:
     mov esp, ebp
     pop ebp
+    ret
