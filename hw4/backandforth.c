@@ -24,16 +24,16 @@ int addstr(char* a, char* b);
 /** Option 2 */
 int is_palindromeASM(char* s);
 
+/** Option 3 */
 int factstr(char *s);
 int fact(int n) {
-    /** Option 3 */
     if (n <= 1) return 1;
     return n * fact(n-1);
 }
 
+/** Option 4 */
 void palindrome_check();
 int is_palindromeC(char* buf, int len) {
-    /** Option 4 */
     int i, j;
     for (i = 0, j = len-1; i < len/2; i++, j--) {
         if (buf[i] != buf[j]) return 0;
@@ -48,8 +48,8 @@ int program_selection() {
     printf("3) Print the factorial of a number\n");
     printf("4) Test if a string is a palindrome (ASM -> C)\n");
     printf("5) Exit\n");
-    int selection;
     printf("Enter choice: ");
+    int selection;
     if (scanf("%d", &selection) != 1) {
         int c;
         // clear the rest of the line so leftover input doesn't break the next read
