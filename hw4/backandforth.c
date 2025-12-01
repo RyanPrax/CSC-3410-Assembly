@@ -90,7 +90,7 @@ int main() {
             break;
         case 3:
             char* n = prompt_str("Enter a number: ");
-            printf("%d", factstr(n));
+            printf("Factorial = %d", factstr(n));
             break;
         case 4:
             palindrome_check();
