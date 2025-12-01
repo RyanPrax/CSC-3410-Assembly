@@ -1,9 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void clear_screen() {
     printf("\033[H\033[J");
     fflush(stdout);
+}
+
+char* prompt_str(char* message) {
+    char* input = malloc(100);
+    if (!input) return NULL;
+    printf("%s", message);
+    scanf("%99s", input);
+    return input;
 }
 
 int add_strASM() {
@@ -16,9 +25,11 @@ int is_palindromeASM() {
     return 0;
 }
 
-int fact() {
+int factstr(char *s);
+int fact(int n) {
     /** Option 3 */
-    return 0;
+    if (n <= 1) return 1;
+    return n * fact(n-1);
 }
 
 int is_palindromeC() {
@@ -68,7 +79,8 @@ int main() {
             is_palindromeASM();
             break;
         case 3:
-            fact();
+            char* n = prompt_str("Enter a number: ");
+            printf("%d", factstr(n));
             break;
         case 4:
             is_palindromeC();
@@ -76,6 +88,6 @@ int main() {
         case 5:
             return 0;
     }
-
+    printf("\n");
     return 0;
 }
