@@ -6,6 +6,7 @@ SECTION .text
     EXTERN atoi
     EXTERN fact
 
+; Option 1: Add two numbers together
 addstr:
     push ebp
     mov ebp, esp
@@ -28,24 +29,7 @@ addstr:
     mov esp, ebp
     pop ebp
     ret
-
-
-factstr:
-    push ebp
-    mov ebp, esp
-    
-    push DWORD [ebp+8]
-    call atoi
-    add esp, 4
-
-    push eax
-    call fact
-    add esp, 4
-
-    mov esp, ebp
-    pop ebp
-    ret
-
+; Option 2: Palindrome (C -> ASM)
 is_palindromeASM:
     push ebp
     mov ebp, esp
@@ -96,3 +80,19 @@ is_palindromeASM:
     pop ebp
     ret
 
+; Option 3: Print the factorial of a number
+factstr:
+    push ebp
+    mov ebp, esp
+    
+    push DWORD [ebp+8]
+    call atoi
+    add esp, 4
+
+    push eax
+    call fact
+    add esp, 4
+
+    mov esp, ebp
+    pop ebp
+    ret
